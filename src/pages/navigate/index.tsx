@@ -13,6 +13,10 @@ const Page = () => {
         router.push('/marketplace');
     };
 
+    const handleAllItemsClick = () => {
+        router.push('/all-items');
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="h1" component="h1" gutterBottom>
@@ -24,8 +28,13 @@ const Page = () => {
             <Button variant="contained" size="large" color="secondary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleMarketplaceClick}>
                 Marketplace
             </Button>
+            <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAllItemsClick}>
+                All Items
+            </Button>
+            
         </div>
     );
 };
+
 
 export default Page;
