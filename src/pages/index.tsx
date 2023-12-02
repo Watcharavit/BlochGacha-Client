@@ -9,6 +9,7 @@ import CompanyNavigatePage from '@/components/homePage/companyNavigate';
 const LoginPage: React.FC = () => {
   const { data: session } = useSession();
   if (session) {
+    //@ts-ignore
     const role = session.user?.role;
     
     if (role === 'company') {
