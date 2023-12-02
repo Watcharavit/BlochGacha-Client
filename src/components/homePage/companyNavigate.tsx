@@ -10,6 +10,9 @@ export default function CompanyNavigatePage(){
         router.push('/company/add-gacha');
     };
 
+    const handleAddItems = () => {
+        // Add logic for adding items here
+    };
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -22,6 +25,10 @@ export default function CompanyNavigatePage(){
             <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddGacha}>
                 Add Gacha
             </Button>
+            <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddItems}>
+                Add Items
+            </Button>
+            
             <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={()=>signOut()}>
                 Log Out
             </Button>
