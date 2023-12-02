@@ -3,6 +3,15 @@ import React from 'react';
 import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import GachaPage from '@/components/gacha/GachaPage';
+
+interface GachaCardProps {
+    title: string;
+    description: string;
+    image: string;
+};
+
+
 
 const cards = [
     {
@@ -53,8 +62,7 @@ const cards = [
 ];
 
 
-const GachaCard: React.FC<{ card: any }> = ({ card }) => {
-    
+const GachaCard: React.FC<{ card: GachaCardProps }> = ({ card }) => {
     return (
         <Card>
             <CardMedia component="img" image={card.image} alt={card.title} />
@@ -68,29 +76,15 @@ const GachaCard: React.FC<{ card: any }> = ({ card }) => {
     );
 };
 
-const GachaPage: React.FC = () => {
+const Page: React.FC = () => {
     const router = useRouter();
-
     function handleGoBack(event: any): void {
         router.push('/navigate')
     }
 
     return (
-        <div>
-            <IconButton onClick={handleGoBack} style={{ position: 'absolute', top: 10, left: 10 }}>
-                <ArrowBack />
-            </IconButton>
-            <Typography variant="h1" align="center">BlockGacha</Typography>
-            <Typography variant="h4" align="center">Marketplace</Typography>
-            <Grid container spacing={3}>
-                {cards.map((card, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index}>
-                        <GachaCard card={card} />
-                    </Grid>
-                ))}
-            </Grid>
-        </div>
+        <GachaPage cards={cards} />
     );
 };
 
-export default GachaPage;
+export default Page;

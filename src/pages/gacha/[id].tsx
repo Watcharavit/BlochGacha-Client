@@ -40,7 +40,6 @@ const GachaPage = () => {
         <Button variant="contained" onClick={handleRollClick} style= { { paddingInline:100 , height: 100 , fontSize:70}}  >
           Roll
         </Button>
-        {/* <CircleIcon style={{color:'white'}}/> */}
       </div>
     </div>
   );
