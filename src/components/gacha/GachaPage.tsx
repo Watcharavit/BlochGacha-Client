@@ -34,7 +34,7 @@ export default function GachaPage (cards:GachaPageProps) {
     const cards2 = cards.cards;
 
     function handleGoBack(event: any): void {
-        router.push('/navigate')
+        router.push('/')
     }
 
     return (

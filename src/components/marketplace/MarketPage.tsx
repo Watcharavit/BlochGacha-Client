@@ -1,7 +1,10 @@
 import React from 'react';
 
-import { Grid, Card, CardContent, Typography, CardMedia } from '@mui/material';
+import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { useRouter } from 'next/router';
 
+const router = useRouter();
 interface IMarketCards {
     title: string;
     description: string;
@@ -27,8 +30,14 @@ const ItemCard: React.FC<{ card: IMarketCards }> = ({ card }) => {
 };
 export default function MarketPage(cards:IMarketPage) {
     const cards2 = cards.cards;
+    function handleGoBack(event: any): void {
+        router.push('/')
+    }
     return (
         <div>
+            <IconButton onClick={handleGoBack} style={{ position: 'absolute', top: 10, left: 10 }}>
+                <ArrowBack />
+            </IconButton>
             <Typography variant="h4">Marketplace</Typography>
             <Grid container spacing={3}>
                 {cards2.map((card, index) => (

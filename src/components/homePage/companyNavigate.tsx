@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { signOut } from 'next-auth/react';
 
 export default function CompanyNavigatePage(){
     const router = useRouter();
@@ -21,7 +22,7 @@ export default function CompanyNavigatePage(){
             <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddGacha}>
                 Add Gacha
             </Button>
-            <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddGacha}>
+            <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={()=>signOut()}>
                 Log Out
             </Button>
         </div>
