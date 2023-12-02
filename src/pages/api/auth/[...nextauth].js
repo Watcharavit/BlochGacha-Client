@@ -8,14 +8,13 @@ export const authOptions = {
   providers: [
     CredentialsProvider({
       id: "my-login",
-      name: "MyLogin",
+      name: "User&Pass Login",
       async authorize(credentials, req) {
           /* add function to get user */
         //   console.log(credentials)
         if (!credentials || !credentials.email || !credentials.password) {
             return null;
         }
-        // console.log(req)
         const res = await fetch('http://localhost:5400/api/v1/auth/login', {
             method: 'POST',
             headers: {
@@ -23,10 +22,20 @@ export const authOptions = {
             },
             body: JSON.stringify(credentials)
         })
-        const data = await res.json()
 
-        // console.log(data)
+        var data = await res.json();
+        const res2 = await fetch('http://localhost:5400/api/v1/auth/me', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + data.token,
+            },
+        });
+        const data2 = await res2.json();
+        const role = data2.data.role;
+        console.log(role);
 
+        data['role'] = role;
+        console.log(data);
         if (data.success){
             return data
         }
@@ -37,22 +46,18 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
     }),
-    // CredentialsProvider({
-    //   id: "intranet-credentials",
-    //   name: "Two Factor Auth",
-    //   async authorize(credentials, req) {
-    //     const user = {
-    //       /* add function to get user */
-    //     }
-    //     return user
-    //   },
-    //   credentials: {
-    //     username: { label: "Username", type: "text ", placeholder: "jsmith" },
-    //     "2fa-key": { label: "2FA Key" },
-    //   },
-    // }),
-    /* ... additional providers ... /*/
-  ]
+
+  ],
+  callbacks:{
+    async session({session, token, user}) {
+        session.user = token;
+        return session;
+    },
+    async jwt({token, user}) {
+        return {...token, ...user};
+    },
+  },
+  
 }
 
 export default NextAuth(authOptions)

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/router';
