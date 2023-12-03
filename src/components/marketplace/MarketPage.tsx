@@ -4,8 +4,9 @@ import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-const router = useRouter();
+
 interface IMarketCards {
+    id: string;
     title: string;
     description: string;
     image: string;
@@ -16,8 +17,13 @@ interface IMarketPage{
 };
 
 const ItemCard: React.FC<{ card: IMarketCards }> = ({ card }) => {
+    const router = useRouter();
+
+    function handleClick(): void {
+        router.push(`/marketplace/${card.id}`); // Redirect to /gacha/[id]
+    }
     return (
-        <Card>
+        <Card onClick={handleClick} style={{ cursor: 'pointer' }}>
             <CardMedia component="img" image={card.image} alt={card.title} />
             <CardContent>
                 <Typography variant="h5" component="h2">
@@ -30,8 +36,10 @@ const ItemCard: React.FC<{ card: IMarketCards }> = ({ card }) => {
 };
 export default function MarketPage(cards:IMarketPage) {
     const cards2 = cards.cards;
+    const router = useRouter();
+
     function handleGoBack(event: any): void {
-        router.push('/')
+        router.push('/');
     }
     return (
         <div>

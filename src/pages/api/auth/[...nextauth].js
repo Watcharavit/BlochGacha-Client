@@ -15,7 +15,7 @@ export const authOptions = {
         if (!credentials || !credentials.email || !credentials.password) {
             return null;
         }
-        const res = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/login`, {
+        const res = await fetch(`${process.env.BACKEND_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const authOptions = {
         })
 
         var data = await res.json();
-        const res2 = await fetch(`${process.env.BACKEND_URL}/api/v1/auth/me`, {
+        const res2 = await fetch(`${process.env.BACKEND_URL}/auth/me`, {
             method: 'GET',
             headers: {
                 'Authorization': 'Bearer ' + data.token,

@@ -45,6 +45,7 @@ const ItemPage = () => {
 
                 {/* Right side */}
                 <Box sx={{ width: '50%', backgroundColor: '#dddddd', padding: 20 }}>
+                    <Typography variant="h5">Balance: 200</Typography>
                     <Typography variant="h5">Cost: {item.cost}</Typography>
                     <Button variant="contained" onClick={handlePurchase}>Purchase</Button>
                 </Box>

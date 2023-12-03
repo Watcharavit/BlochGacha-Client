@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/router';
@@ -8,6 +7,7 @@ interface GachaCardProps {
     title: string;
     description: string;
     image: string;
+    id: string; // Add id property to GachaCardProps
 };
 
 interface GachaPageProps {
@@ -15,9 +15,14 @@ interface GachaPageProps {
 };
 
 const GachaCard: React.FC<{ card: GachaCardProps }> = ({ card }) => {
-    
+    const router = useRouter();
+
+    function handleClick(): void {
+        router.push(`/gacha/${card.id}`); // Redirect to /gacha/[id]
+    }
+
     return (
-        <Card>
+        <Card onClick={handleClick} style={{ cursor: 'pointer' }}>
             <CardMedia component="img" image={card.image} alt={card.title} />
             <CardContent>
                 <Typography variant="h5" component="h2">
@@ -29,12 +34,12 @@ const GachaCard: React.FC<{ card: GachaCardProps }> = ({ card }) => {
     );
 };
 
-export default function GachaPage (cards:GachaPageProps) {
+export default function GachaPage(cards: GachaPageProps) {
     const router = useRouter();
     const cards2 = cards.cards;
 
     function handleGoBack(event: any): void {
-        router.push('/')
+        router.push('/');
     }
 
     return (
@@ -45,7 +50,7 @@ export default function GachaPage (cards:GachaPageProps) {
             <Typography variant="h1" align="center">BlockGacha</Typography>
             <Typography variant="h4" align="center">Marketplace</Typography>
             <Grid container spacing={3}>
-                {cards2.map((card:GachaCardProps, index:number) => (
+                {cards2.map((card: GachaCardProps, index: number) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
                         <GachaCard card={card} />
                     </Grid>
