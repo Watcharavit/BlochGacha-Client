@@ -5,18 +5,19 @@ const RegisterPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [walletAddress, setwalletAddress] = useState('');
     const [role, setRole] = useState('');
     const [regFail, setRegFail] = useState(false);
     const router = useRouter();
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
-        console.log(JSON.stringify({ name: username, email: email, password: password, role: role }));
+        // console.log(JSON.stringify({ name: username, email: email, password: password, role: role }));
         const res = await fetch('http://localhost:5400/api/v1/auth/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name: username, email: email, password: password, role: role }),
+            body: JSON.stringify({ name: username, email: email, password: password, walletAddress:walletAddress, role: role }),
         });
         const data = await res.json();
         if(data.success){
@@ -58,7 +59,13 @@ const RegisterPage: React.FC = () => {
                     style={{width: '100%'}}
                     margin="normal"
                 />
-
+                <TextField
+                    label="Wallet ID"
+                    value={walletAddress}
+                    onChange={(event) => setwalletAddress(event.target.value)}
+                    margin="normal"
+                    style={{width: '100%'}}
+                />
                 <br/>
                 <FormControl style={{alignContent:"left",marginBottom:"40px"}}>
                 <FormLabel id="role-select" >Role</FormLabel>

@@ -12,6 +12,7 @@ export default function CompanyNavigatePage(){
 
     const handleAddItems = () => {
         // Add logic for adding items here
+        router.push('/company/add-item');
     };
 
     return (
@@ -28,7 +29,6 @@ export default function CompanyNavigatePage(){
             <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddItems}>
                 Add Items
             </Button>
-            
             <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={()=>signOut()}>
                 Log Out
             </Button>
