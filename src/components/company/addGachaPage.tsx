@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card } from '@mui/material';
 import { TextField, Button, Typography } from '@mui/material';
 import FormCard from '@/components/company/formCard';
+import { useSession } from 'next-auth/react';
 
 export function ItemCard(props: {
     order: string;
@@ -27,6 +28,9 @@ export default function AddGachaPage() {
     const [price, setPrice] = useState('');
     const [items, setItems] = useState<{ name: string; price: string; }[]>([]);
 
+    const { data: session } = useSession();
+
+    
     const handleAddItem = (event: React.FormEvent) => {
         event.preventDefault();
         setItems([...items, { name: name, price: price }]);
@@ -34,9 +38,49 @@ export default function AddGachaPage() {
         setPrice('');
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         console.log(items);
+        if(!session){
+            return;
+        }
+        //@ts-ignore
+        const token = session.user?.token;
+        const res = await fetch(`${process.env.BACKEND_URL}/package/packages`, {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer ' + token,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({packageName:name,price:price,status:true}),
+        });
+        const data0 = await res.json();
+        const packageId = data0.packageID;
+
+        for (let i = 0; i < items.length; i++) {
+            const res = await fetch(`${process.env.BACKEND_URL}/package/items`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({itemName:items[i].name,price:items[i].price}),
+            });
+            const data1 = await res.json();
+            const itemId = data1.itemID;
+            console.log("Item",itemId,"Created");
+            const res2 = await fetch(`${process.env.BACKEND_URL}/package/packages/${packageId}/items/${itemId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + token,
+                    'Content-Type': 'application/json',
+                },
+            });
+            console.log("Item",itemId,"Added to Package",packageId);
+
+
+        }
+
         // Handle form submission logic here
     };
 

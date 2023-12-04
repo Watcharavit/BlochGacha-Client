@@ -26,9 +26,9 @@ export default function CompanyNavigatePage(){
             <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddGacha}>
                 Add Gacha
             </Button>
-            <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddItems}>
+            {/* <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAddItems}>
                 Add Items
-            </Button>
+            </Button> */}
             <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={()=>signOut()}>
                 Log Out
             </Button>

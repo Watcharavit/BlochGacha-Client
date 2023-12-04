@@ -16,7 +16,7 @@ const GachaPage = () => {
 
   const handleRollClick = () => {
     // handle roll logic here
-    setResultText('You got a new item!');
+    setResultText('You got a new item! Check your inventory.');
   };
 
   return (
