@@ -15,7 +15,7 @@ export default function UserNavigatePage () {
     };
 
     const handleAllItemsClick = () => {
-        router.push('/all-items');
+        router.push('/profile');
     };
 
     return (
@@ -30,7 +30,7 @@ export default function UserNavigatePage () {
                 Marketplace
             </Button>
             <Button variant="contained" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={handleAllItemsClick}>
-                All Items
+                Your Profile
             </Button>
             <Button variant="outlined" size="large" color="primary" style={{width: '50%', marginTop: '20px', fontSize: '1.5rem'}} onClick={ ()=> { signOut() } }>
                 Log Out
