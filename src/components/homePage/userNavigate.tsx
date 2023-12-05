@@ -55,6 +55,15 @@ export default function UserNavigatePage() {
 				size="large"
 				color="primary"
 				style={{ width: "50%", marginTop: "20px", fontSize: "1.5rem" }}
+				onClick={() => router.push("/itemget")}
+			>
+				View Item Info
+			</Button>
+			<Button
+				variant="contained"
+				size="large"
+				color="primary"
+				style={{ width: "50%", marginTop: "20px", fontSize: "1.5rem" }}
 				onClick={() => {
 					signOut();
 				}}
