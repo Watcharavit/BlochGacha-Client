@@ -1,7 +1,7 @@
 import AddItemPage from "@/components/company/addItemPage";
 
 const Page = () => {
-    return <AddItemPage />;
-}
+	return <AddItemPage />;
+};
 
 export default Page;

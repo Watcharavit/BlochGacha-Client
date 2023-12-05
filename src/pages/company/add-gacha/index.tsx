@@ -1,7 +1,7 @@
 import AddGachaPage from "@/components/company/addGachaPage";
 
 const Page = () => {
-    return <AddGachaPage />;
-}
+	return <AddGachaPage />;
+};
 
 export default Page;
