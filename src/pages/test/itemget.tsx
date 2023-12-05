@@ -1,8 +1,8 @@
 import { Button, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 
-export default function ItemGetter() {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmViYjY2ZGVhM2E1OGNlOWI5YjRlNyIsImlhdCI6MTcwMTc4MjkwMiwiZXhwIjoxNzMzMzE4OTAyfQ.1l2y82wNR9gnU8__1nj7OgeUDqHp9Ls2fKXeXadlaCI";
+export default function ItemGetter(token: string) {
+    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmViYjY2ZGVhM2E1OGNlOWI5YjRlNyIsImlhdCI6MTcwMTc4MjkwMiwiZXhwIjoxNzMzMzE4OTAyfQ.1l2y82wNR9gnU8__1nj7OgeUDqHp9Ls2fKXeXadlaCI";
     const [itemId, setItemId] = useState<string>("");
     const [itemName, setItemName] = useState<string>("");
     const [itemRate, setItemRate] = useState<string>("");
