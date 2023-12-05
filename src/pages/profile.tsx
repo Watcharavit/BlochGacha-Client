@@ -6,7 +6,7 @@ import { ArrowBack } from "@mui/icons-material";
 
 const ProfilePage = () => {
 	const [accountData, setAccountData] = useState(null);
-	const { data: session } = useSession();
+    const {data:session} = useSession();
 	//@ts-ignore
 	const token = session?.user?.token;
 
@@ -28,19 +28,15 @@ const ProfilePage = () => {
 		router.back();
 	};
 
-	// const handleUserData =async () => {
-	//     const data = await fetch('http://localhost:5400/account',{
-	//         method: 'GET',
-	//         headers: {
-	//             Authorization: 'Bearer ' + token
-	//         },
-
-	//     })
-	//     const res = await data.json();
-	//     setUserDataButton(false);
-	//     console.log(res);
-	// }
-
+    const handleRedeem = (itemID: string) => {
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account/items/${itemID}`, {
+            method: "PUT",
+            headers: {
+				Authorization: "Bearer " + token
+			}
+		})
+        console.log("redeemed")
+    }
 	if (!session) {
 		return null; // Render nothing while redirecting
 	}
@@ -56,9 +52,7 @@ const ProfilePage = () => {
 			<Typography variant="h4" align="center">
 				Welcome {session.user?.name}
 			</Typography>
-			<Typography variant="h6" align="center">
-				Click here to view your profile
-			</Typography>
+
 			<div>
 				<Typography variant="h6">
 					Token Balance:{" "}
@@ -80,7 +74,7 @@ const ProfilePage = () => {
 							<tr>
 								<td style={{ padding: "10px" }}>{itemID}</td>
 								<td style={{ padding: "10px" }}>
-									<Button variant="contained" color="primary">
+									<Button variant="contained" color="primary" onClick={() => handleRedeem(itemID)}>
 										Redeem
 									</Button>
 								</td>
