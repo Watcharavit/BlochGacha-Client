@@ -16,19 +16,12 @@ interface ItemCardProps {
 }
 
 const ItemCard: React.FC<ItemCardProps> = ({ order, name, rate, onNameChange, onRateChange }) => (
-	<Card variant="outlined" className="itemCard">
+	<Card variant="outlined" style={{ padding: "20px", margin: "20px", width: "80%" }}>
 		<Typography variant="h6">Item {order}</Typography>
-		<TextField label="Name" variant="outlined" onChange={onNameChange} value={name} />
-		<TextField label="Rate" variant="outlined" onChange={onRateChange} value={rate} />
+		<TextField label="Name" variant="outlined" style={{ width: "70%" }} onChange={onNameChange} value={name} />
+		<TextField label="Rate" variant="outlined" style={{ width: "30%" }} onChange={onRateChange} value={rate} />
 	</Card>
 );
-/*
-<Card variant="outlined" style={{ padding: "20px", margin: "20px", width: "80%" }}>
-    <Typography variant="h6">Item {order}</Typography>
-    <TextField label={"Name"} variant="outlined" style={{ width: "70%" }} onChange={setName} value={name} />
-    <TextField label={"Rate"} variant="outlined" style={{ width: "30%" }} onChange={setRate} value={rate} />
-</Card>
-*/
 
 export default function AddGachaPage() {
 	const { data: session } = useSession();
