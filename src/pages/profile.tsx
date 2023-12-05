@@ -6,13 +6,29 @@ import { ArrowBack } from "@mui/icons-material";
 
 const ProfilePage = () => {
 	const [accountData, setAccountData] = useState(null);
+    const [unredeemedName, setUnRedeemedName] = useState<string[]>([]);
+    const [redeemedName, setRedeemedName] = useState<string[]>([]);
+
 	const { data: session } = useSession();
 	//@ts-ignore
 	const token = session?.user?.token;
+    
+    const getItemName = async (itemId:string) => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/package/items/${itemId}`, {
+            method: "GET",
+            headers: {
+				Authorization: "Bearer " + token
+			}
+		})
+        const data = await res.json(); 
+        return data.itemName;
 
+    }
 	useEffect(() => {
 		const fetchData = () => {
 			console.log("Fetching data...");
+
+
 			fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account`, {
 				method: "GET",
 				headers: {
@@ -20,8 +36,19 @@ const ProfilePage = () => {
 				}
 			})
 				.then((response) => response.json())
-				.then((data) => setAccountData(data))
+				.then((data) => {
+                    setAccountData(data)
+                    const unredeemed = data.unredeemedItemIDs.map((itemID: string) => getItemName(itemID));
+                    const redeemed = data.redeemedItemIDs.map((itemID: string) => getItemName(itemID));
+                    Promise.all(unredeemed).then((values) => setUnRedeemedName(values));
+                    Promise.all(redeemed).then((values) => setRedeemedName(values));
+                    
+
+                })
 				.catch((error) => console.error(error));
+
+
+
 		};
 
 		// Set the delay (in milliseconds) for the fetchData function
@@ -32,7 +59,7 @@ const ProfilePage = () => {
 
 		// Clear the timeout if the component unmounts
 		return () => clearTimeout(timer);
-	}, [accountData]);
+	}, [accountData,unredeemedName,redeemedName]);
 
 	const router = useRouter();
 
@@ -78,14 +105,18 @@ const ProfilePage = () => {
 					<thead>
 						<tr>
 							<th>Item ID</th>
+							<th>Item Name</th>
+                            <th> </th>
+
 						</tr>
 					</thead>
 					<tbody>
 						{
 							// @ts-ignore
-							accountData?.unredeemedItemIDs?.map((itemID: any) => (
+							accountData?.unredeemedItemIDs?.map((itemID: any,index:number) => (
 								<tr key={itemID}>
 									<td style={{ padding: "10px" }}>{itemID}</td>
+									<td style={{ padding: "10px" }}>{unredeemedName[index]}</td>
 									<td style={{ padding: "10px" }}>
 										<Button
 											variant="contained"
@@ -109,14 +140,18 @@ const ProfilePage = () => {
 					<thead>
 						<tr>
 							<th>Item ID</th>
+							<th>Item Name</th>
+
 						</tr>
 					</thead>
 					<tbody>
 						{
 							// @ts-ignore
-							accountData?.redeemedItemIDs?.map((itemID: any) => (
+							accountData?.redeemedItemIDs?.map((itemID: any,index: number) => (
 								<tr key={itemID}>
 									<td>{itemID}</td>
+									<td style={{ padding: "10px" }}>{redeemedName[index]}</td>
+
 								</tr>
 							)) ?? (
 								<tr>
