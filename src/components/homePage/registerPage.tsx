@@ -12,7 +12,7 @@ const RegisterPage: React.FC = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault(); 
         // console.log(JSON.stringify({ name: username, email: email, password: password, role: role }));
-        const res = await fetch('http://localhost:5400/api/v1/auth/register', {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

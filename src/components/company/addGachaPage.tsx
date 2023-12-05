@@ -26,50 +26,61 @@ export function ItemCard(props: {
 export default function AddGachaPage() {
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [items, setItems] = useState<{ name: string; price: string; }[]>([]);
+    const [items, setItems] = useState<{ name: string; rate: string; }[]>([]);
 
     const { data: session } = useSession();
 
     
     const handleAddItem = (event: React.FormEvent) => {
         event.preventDefault();
-        setItems([...items, { name: name, price: price }]);
-        setName('');
-        setPrice('');
+        setItems([...items, { name: '', rate: '' }]);
     };
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        // console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
         console.log(items);
         if(!session){
+            alert('Please login');
             return;
         }
-        //@ts-ignore
+    
+
+        // @ts-ignore
         const token = session.user?.token;
-        const res = await fetch(`${process.env.BACKEND_URL}/package/packages`, {
+        console.log('Check Number')
+        const priceNumber = parseInt(price);
+        console.log(token)
+        //@ts-ignore
+        console.log(session.user?.role)
+
+        if (isNaN(priceNumber)) {
+            alert('Price must be a number');
+            return;
+        }
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/package/packages`, {
             method: 'POST',
             headers: {
-                Authorization: 'Bearer ' + token,
-                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`,
             },
-            body: JSON.stringify({packageName:name,price:price,status:true}),
+            body: JSON.stringify({packageName:name,price:priceNumber,status:true}),
         });
         const data0 = await res.json();
         const packageId = data0.packageID;
-
+        console.log("Package",packageId,"Created");
         for (let i = 0; i < items.length; i++) {
-            const res = await fetch(`${process.env.BACKEND_URL}/package/items`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/package/items`, {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({itemName:items[i].name,price:items[i].price}),
+                body: JSON.stringify({itemName:items[i].name,itemRate:parseInt(items[i].rate)}),
             });
             const data1 = await res.json();
             const itemId = data1.itemID;
             console.log("Item",itemId,"Created");
-            const res2 = await fetch(`${process.env.BACKEND_URL}/package/packages/${packageId}/items/${itemId}`, {
+            const res2 = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/package/packages/${packageId}/items/${itemId}`, {
                 method: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + token,
@@ -80,15 +91,21 @@ export default function AddGachaPage() {
 
 
         }
+        //success
+        console.log("Package",packageId,"Created");
+        setName('');
+        setPrice('');
+        setItems([]);
+        alert("Package Created");
 
-        // Handle form submission logic here
-    };
+            // Handle form submission logic here
+        };
 
-    return (
-        <div>
-            <Typography variant="h1" component="h1" gutterBottom align="center">
-                BlockGacha
-            </Typography>
+        return (
+            <div>
+                <Typography variant="h1" component="h1" gutterBottom align="center">
+                    BlockGacha
+                </Typography>
             <Typography variant="h3" component="h3" gutterBottom align="center">
                 Add Gacha Form
             </Typography>
@@ -101,7 +118,7 @@ export default function AddGachaPage() {
                         key={index}
                         order={(index + 1).toString()}
                         name={item.name}
-                        rate={item.price}
+                        rate={item.rate}
                         setName={(event: React.ChangeEvent<HTMLInputElement>) => {
                             const updatedItems = [...items];
                             updatedItems[index].name = event.target.value;
@@ -109,7 +126,7 @@ export default function AddGachaPage() {
                         }}
                         setRate={(event: React.ChangeEvent<HTMLInputElement>) => {
                             const updatedItems = [...items];
-                            updatedItems[index].price = event.target.value;
+                            updatedItems[index].rate = event.target.value;
                             setItems(updatedItems);
                         }}
                         handleAddItem={handleAddItem}

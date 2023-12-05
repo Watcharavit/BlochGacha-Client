@@ -3,18 +3,18 @@ import { Grid, Card, CardContent, Typography, CardMedia, IconButton } from '@mui
 import { ArrowBack } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
-interface GachaCardProps {
+interface CompanyCardProps {
     title: string;
-    description: string;
-    image: string;
+    // description: string;
+    // image: string;
     id: string; // Add id property to GachaCardProps
 };
 
-interface GachaPageProps {
-    cards: Array<GachaCardProps>;
+interface CompanyPageProps {
+    cards: Array<CompanyCardProps>;
 };
 
-const GachaCard: React.FC<{ card: GachaCardProps }> = ({ card }) => {
+const CompanyCard: React.FC<{ card: CompanyCardProps }> = ({ card }) => {
     const router = useRouter();
 
     function handleClick(): void {
@@ -23,18 +23,18 @@ const GachaCard: React.FC<{ card: GachaCardProps }> = ({ card }) => {
 
     return (
         <Card onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <CardMedia component="img" image={card.image} alt={card.title} />
+            {/* <CardMedia component="img" image={card.image} alt={card.title} /> */}
             <CardContent>
                 <Typography variant="h5" component="h2">
                     {card.title}
                 </Typography>
-                <Typography color="textSecondary">{card.description}</Typography>
+                <Typography color="textSecondary">Gacha Company</Typography>
             </CardContent>
         </Card>
     );
 };
 
-export default function GachaPage(cards: GachaPageProps) {
+export default function GachaPage(cards: CompanyPageProps) {
     const router = useRouter();
     const cards2 = cards.cards;
 
@@ -50,9 +50,9 @@ export default function GachaPage(cards: GachaPageProps) {
             <Typography variant="h1" align="center">BlockGacha</Typography>
             <Typography variant="h4" align="center">Marketplace</Typography>
             <Grid container spacing={3}>
-                {cards2.map((card: GachaCardProps, index: number) => (
+                {cards2.map((card: CompanyCardProps, index: number) => (
                     <Grid item xs={12} sm={6} md={4} key={index}>
-                        <GachaCard card={card} />
+                        <CompanyCard card={card} />
                     </Grid>
                 ))}
             </Grid>
