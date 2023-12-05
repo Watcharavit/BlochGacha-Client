@@ -11,16 +11,28 @@ const ProfilePage = () => {
 	const token = session?.user?.token;
 
 	useEffect(() => {
-		fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account`, {
-			method: "GET",
-			headers: {
-				Authorization: "Bearer " + token
-			}
-		})
-			.then((response) => response.json())
-			.then((data) => setAccountData(data))
-			.catch((error) => console.error(error));
-	}, []);
+		const fetchData = () => {
+			console.log("Fetching data...");
+			fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account`, {
+				method: "GET",
+				headers: {
+					Authorization: "Bearer " + token
+				}
+			})
+				.then((response) => response.json())
+				.then((data) => setAccountData(data))
+				.catch((error) => console.error(error));
+		};
+
+		// Set the delay (in milliseconds) for the fetchData function
+		const delay = 5000; // Delay for 5 seconds, for example
+
+		// Set a timeout to call fetchData after the specified delay
+		const timer = setTimeout(fetchData, delay);
+
+		// Clear the timeout if the component unmounts
+		return () => clearTimeout(timer);
+	}, [accountData]);
 
 	const router = useRouter();
 
@@ -72,7 +84,7 @@ const ProfilePage = () => {
 						{
 							// @ts-ignore
 							accountData?.unredeemedItemIDs?.map((itemID: any) => (
-								<tr>
+								<tr key={itemID}>
 									<td style={{ padding: "10px" }}>{itemID}</td>
 									<td style={{ padding: "10px" }}>
 										<Button
@@ -84,7 +96,11 @@ const ProfilePage = () => {
 										</Button>
 									</td>
 								</tr>
-							))
+							)) ?? (
+								<tr>
+									<td>No unredeemed items</td>
+								</tr>
+							)
 						}
 					</tbody>
 				</table>
@@ -99,10 +115,14 @@ const ProfilePage = () => {
 						{
 							// @ts-ignore
 							accountData?.redeemedItemIDs?.map((itemID: any) => (
-								<tr>
+								<tr key={itemID}>
 									<td>{itemID}</td>
 								</tr>
-							))
+							)) ?? (
+								<tr>
+									<td>No unredeemed items</td>
+								</tr>
+							)
 						}
 					</tbody>
 				</table>
@@ -118,10 +138,14 @@ const ProfilePage = () => {
 						{
 							// @ts-ignore
 							accountData?.proposeTradeIDs?.map((itemID: any) => (
-								<tr>
+								<tr key={itemID}>
 									<td>{itemID}</td>
 								</tr>
-							))
+							)) ?? (
+								<tr>
+									<td>No unredeemed items</td>
+								</tr>
+							)
 						}
 					</tbody>
 				</table>
@@ -137,10 +161,14 @@ const ProfilePage = () => {
 						{
 							// @ts-ignore
 							accountData?.requestedTradeIDs?.map((itemID: any) => (
-								<tr>
+								<tr key={itemID}>
 									<td>{itemID}</td>
 								</tr>
-							))
+							)) ?? (
+								<tr>
+									<td>No unredeemed items</td>
+								</tr>
+							)
 						}
 					</tbody>
 				</table>
