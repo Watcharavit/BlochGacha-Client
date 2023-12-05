@@ -6,7 +6,7 @@ import { ArrowBack } from "@mui/icons-material";
 
 const ProfilePage = () => {
 	const [accountData, setAccountData] = useState(null);
-    const {data:session} = useSession();
+	const { data: session } = useSession();
 	//@ts-ignore
 	const token = session?.user?.token;
 
@@ -28,15 +28,15 @@ const ProfilePage = () => {
 		router.back();
 	};
 
-    const handleRedeem = (itemID: string) => {
-        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account/items/${itemID}`, {
-            method: "PUT",
-            headers: {
+	const handleRedeem = (itemID: string) => {
+		fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account/items/${itemID}`, {
+			method: "PUT",
+			headers: {
 				Authorization: "Bearer " + token
 			}
-		})
-        console.log("redeemed")
-    }
+		});
+		console.log("redeemed");
+	};
 	if (!session) {
 		return null; // Render nothing while redirecting
 	}
@@ -69,17 +69,23 @@ const ProfilePage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{// @ts-ignore
-						accountData?.unredeemedItemIDs.map((itemID: any) => (
-							<tr>
-								<td style={{ padding: "10px" }}>{itemID}</td>
-								<td style={{ padding: "10px" }}>
-									<Button variant="contained" color="primary" onClick={() => handleRedeem(itemID)}>
-										Redeem
-									</Button>
-								</td>
-							</tr>
-						))}
+						{
+							// @ts-ignore
+							accountData?.unredeemedItemIDs?.map((itemID: any) => (
+								<tr>
+									<td style={{ padding: "10px" }}>{itemID}</td>
+									<td style={{ padding: "10px" }}>
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={() => handleRedeem(itemID)}
+										>
+											Redeem
+										</Button>
+									</td>
+								</tr>
+							))
+						}
 					</tbody>
 				</table>
 				<Typography variant="h6">Redeemed Items</Typography>
@@ -90,12 +96,14 @@ const ProfilePage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{// @ts-ignore
-						accountData?.redeemedItemIDs.map((itemID: any) => (
-							<tr>
-								<td>{itemID}</td>
-							</tr>
-						))}
+						{
+							// @ts-ignore
+							accountData?.redeemedItemIDs?.map((itemID: any) => (
+								<tr>
+									<td>{itemID}</td>
+								</tr>
+							))
+						}
 					</tbody>
 				</table>
 
@@ -107,12 +115,14 @@ const ProfilePage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{// @ts-ignore
-						accountData?.proposeTradeIDs.map((itemID: any) => (
-							<tr>
-								<td>{itemID}</td>
-							</tr>
-						))}
+						{
+							// @ts-ignore
+							accountData?.proposeTradeIDs?.map((itemID: any) => (
+								<tr>
+									<td>{itemID}</td>
+								</tr>
+							))
+						}
 					</tbody>
 				</table>
 
@@ -124,12 +134,14 @@ const ProfilePage = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{// @ts-ignore
-						accountData?.requestedTradeIDs.map((itemID: any) => (
-							<tr>
-								<td>{itemID}</td>
-							</tr>
-						))}
+						{
+							// @ts-ignore
+							accountData?.requestedTradeIDs?.map((itemID: any) => (
+								<tr>
+									<td>{itemID}</td>
+								</tr>
+							))
+						}
 					</tbody>
 				</table>
 			</div>
