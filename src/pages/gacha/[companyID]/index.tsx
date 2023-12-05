@@ -97,11 +97,11 @@ export default function CompanyGachaPage() {
 			
 			if ("chainId" in data) {
 				window.alert("success")
-			return data
 			} else {
 				window.alert("unsuccess")
 			}
 			
+			return data
 		} catch (error) {
 			window.alert("error"+error)
 		}
