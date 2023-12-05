@@ -7,13 +7,12 @@ import { ArrowBack } from '@mui/icons-material';
 
 const ProfilePage = () => {
     const [accountData, setAccountData] = useState(null);
-    const [userDataButton, setUserDataButton] = useState(true);
     const { data: session } = useSession();
     //@ts-ignore
     const token = session?.user?.token;
 
     useEffect(() => {
-        fetch(`${process.env.BACKEND_URL}/account`,{
+        fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/account`,{
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + token,

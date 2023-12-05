@@ -5,31 +5,6 @@ import { useRouter } from 'next/router';
 import GachaPage from '@/components/gacha/GachaPage';
 import { useSession } from 'next-auth/react';
 
-
-
-const cards = [
-    {
-        id: '1',
-        title: 'Card 1',
-        description: 'This is a sample card description for card 1.',
-        image: 'https://via.placeholder.com/300x150',
-    },
-    {
-        id: '2',
-        title: 'Card 2',
-        description: 'This is a sample card description for card 2.',
-        image: 'https://via.placeholder.com/300x150',
-    },
-    {
-        id: '3',
-        title: 'Card 3',
-        description: 'This is a sample card description for card 3.',
-        image: 'https://via.placeholder.com/300x150',
-    },
-];
-
-
-
 const Page: React.FC = () => {
 
     const [companyData, setCompanyData] = React.useState([]);
