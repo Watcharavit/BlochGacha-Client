@@ -5,16 +5,6 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useEffect } from "react";
 
-// async function fetchPackageData(packageID: string, token: string) {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/package/packages/${ids.join(',')}`, {
-//         method: 'GET',
-//         headers: {
-//             Authorization: 'Bearer ' + token,
-//         },
-//     })
-//     const data = await res.json();
-//     return data;
-// }
 
 export default function CompanyGachaPage() {
     const [companyData, setCompanyData] = React.useState([]);
