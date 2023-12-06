@@ -39,7 +39,7 @@ export default function UserNavigatePage() {
 				style={{ width: "50%", marginTop: "20px", fontSize: "1.5rem" }}
 				onClick={handleMarketplaceClick}
 			>
-				Marketplace
+				Trade
 			</Button>
 			<Button
 				variant="contained"

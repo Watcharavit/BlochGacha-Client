@@ -127,11 +127,7 @@ const ProfilePage = () => {
 										</Button>
 									</td>
 								</tr>
-							)) ?? (
-								<tr>
-									<td>No unredeemed items</td>
-								</tr>
-							)
+							))
 						}
 					</tbody>
 				</table>
@@ -153,11 +149,7 @@ const ProfilePage = () => {
 									<td style={{ padding: "10px" }}>{redeemedName[index]}</td>
 
 								</tr>
-							)) ?? (
-								<tr>
-									<td>No unredeemed items</td>
-								</tr>
-							)
+							)) 
 						}
 					</tbody>
 				</table>
@@ -176,11 +168,7 @@ const ProfilePage = () => {
 								<tr key={itemID}>
 									<td>{itemID}</td>
 								</tr>
-							)) ?? (
-								<tr>
-									<td>No unredeemed items</td>
-								</tr>
-							)
+							)) 
 						}
 					</tbody>
 				</table>
@@ -199,11 +187,7 @@ const ProfilePage = () => {
 								<tr key={itemID}>
 									<td>{itemID}</td>
 								</tr>
-							)) ?? (
-								<tr>
-									<td>No unredeemed items</td>
-								</tr>
-							)
+							)) 
 						}
 					</tbody>
 				</table>

@@ -1,3 +1,4 @@
+import proposeTrade from "@/libs/proposeTrade";
 import { ArrowBack } from "@mui/icons-material";
 import { Typography, TextField, Card, CardContent, IconButton, Button } from "@mui/material";
 import { useSession } from "next-auth/react";
@@ -19,34 +20,31 @@ export default function TradePage() {
     const [tradeID_A, setTradeID_A] = React.useState('');
     const [tradeID_G, setTradeID_G] = React.useState('');
 
-
     const handlePropose = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/trade/proposed`, {
-            method: "POST",  
-            headers: {
-                Authorization: "Bearer " + token
-            },
-            body: JSON.stringify({
-                requestTo: traderAddress,
-                proposeItemID: offerItemID, 
-                requestItemID: requestItemID
-            })
-        })
-        const data = await res.json();
-        if(data.success){
-            setProposeRes(`Success!, Trade ID: ${data.tradeID}`);
+        console.log(traderAddress, offerItemID, requestItemID);
+        if(token != null){
+            const data = await proposeTrade(traderAddress, offerItemID, requestItemID, token)
+            if (data.success){
+                setProposeRes(`Success! Trade ID: ${data.tradeID}`);
+            }
+            else{
+                setProposeRes(`Something went wrong!`);
+                console.log(data);
+            }
         }
         else{
-            setProposeRes(`Something went wrong!`);
-            console.log(data);
+            console.log('no token')
         }
-
+        
     }
+
     const handleAccept = async () => {
         const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/trade/accepted/${tradeID_A}`, {
             method: "PUT",  
             headers: {
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + token,
+                "Content-Type": "application/json"
+
             }
         })
         const data = await res.json();
@@ -69,7 +67,7 @@ export default function TradePage() {
         })
         const data = await res.json();
         if(res.ok){
-            setGetStatusRes(JSON.stringify(data));
+            setGetStatusRes(data.isDone ? `Trade is done!` : `Trade is not done!`);
         }
         else{
             setGetStatusRes(`Something went wrong!`);
