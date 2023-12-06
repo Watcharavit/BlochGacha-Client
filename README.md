@@ -1,4 +1,5 @@
-#BlockGacha
+# BlockGacha
+
 This is the frontend part of our Blockchain Project. It is a final project for Chulalongkorn University's 2110595 ADV TOP COMP V (Blockchain Technology)
 
 You can find the backend part here (https://github.com/Watcharavit/BlockGacha)
